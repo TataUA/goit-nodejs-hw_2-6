@@ -1,6 +1,14 @@
-const contactAddSchema = require("../../schemas/contacts-validation.js");
+const {
+  contactAddSchema,
+  contactUpdateFavoriteSchema,
+} = require("../../schemas/contacts-validation.js");
 const { validateBody } = require("../../decorators");
 
 const addContactValidate = validateBody(contactAddSchema);
 
-module.exports = addContactValidate;
+const updateContactFavoriteValidate = validateBody(contactUpdateFavoriteSchema);
+
+module.exports = {
+  addContactValidate,
+  updateContactFavoriteValidate,
+};

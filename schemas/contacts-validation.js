@@ -15,6 +15,13 @@ const contactAddSchema = Joi.object({
     "string.pattern.base": ` Phone number must have 10 digits`,
     "any.required": `missing required 'phone' field`,
   }),
+  favorite: Joi.boolean().default(false),
 });
 
-module.exports = contactAddSchema;
+const contactUpdateFavoriteSchema = Joi.object({
+  favorite: Joi.boolean().default(false).required().messages({
+    "any.required": `missing required 'favorite' field`,
+  }),
+});
+
+module.exports = { contactAddSchema, contactUpdateFavoriteSchema };
