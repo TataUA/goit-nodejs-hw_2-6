@@ -1,14 +1,16 @@
 const Joi = require("joi");
-
-const nameFieldRegEx = /^[a-zA-Z0-9 ]*$/;
-const phoneFieldRegEx = /\(?(\d{3})\)?[-\.\s]?(\d{3})[-\.\s]?(\d{4})/;
+const {
+  nameFieldRegEx,
+  emailFieldRegEx,
+  phoneFieldRegEx,
+} = require("../helpers");
 
 const contactAddSchema = Joi.object({
   name: Joi.string().required().pattern(new RegExp(nameFieldRegEx)).messages({
     "string.pattern.base": ` Name must have only letters and digits`,
     "any.required": `missing required 'name' field`,
   }),
-  email: Joi.string().required().email().messages({
+  email: Joi.string().required().pattern(new RegExp(emailFieldRegEx)).messages({
     "any.required": `missing required 'email' field`,
   }),
   phone: Joi.string().required().pattern(new RegExp(phoneFieldRegEx)).messages({

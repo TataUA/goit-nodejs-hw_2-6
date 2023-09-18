@@ -1,12 +1,15 @@
 const express = require("express");
+const authenticate = require("../../middlewares/authenticate");
 const {
   isValidId,
   addContactValidate,
   updateContactFavoriteValidate,
-} = require("../../middlewares/validation/index");
-const contactsControllers = require("../../controllers/contacts-controllers.js");
+} = require("../../middlewares/validation");
+const contactsControllers = require("../../controllers/contacts-controllers");
 
 const contactsRouter = express.Router();
+
+contactsRouter.use(authenticate);
 
 contactsRouter.get("/", contactsControllers.getAll);
 
@@ -28,6 +31,6 @@ contactsRouter.patch(
   contactsControllers.updateStatusContact
 );
 
- contactsRouter.delete("/:contactId",isValidId, contactsControllers.deleteById);
+contactsRouter.delete("/:contactId", isValidId, contactsControllers.deleteById);
 
 module.exports = contactsRouter;

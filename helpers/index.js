@@ -1,3 +1,5 @@
 const HttpError = require("./HttpError");
 
-module.exports = HttpError;
+const { emailFieldRegEx, nameFieldRegEx, phoneFieldRegEx } = require('./RegEx');
+
+module.exports = {HttpError, emailFieldRegEx, nameFieldRegEx, phoneFieldRegEx};
