@@ -30,7 +30,11 @@ const userLoginSchema = Joi.object({
 const userUpdateSubscriptionSchema = Joi.object({
   subscription: Joi.string()
     .valid("starter", "pro", "business")
-    .default("starter"),
+    .default("starter")
+    .required()
+    .messages({
+      "any.required": `missing required 'subscription' field`,
+    }),
 });
 
 module.exports = {
