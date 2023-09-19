@@ -1,7 +1,7 @@
 const {
   contactAddSchema,
   contactUpdateFavoriteSchema,
-} = require("../../schemas/contacts-validation.js");
+} = require("../../schemas");
 const { validateBody } = require("../../decorators");
 
 const addContactValidate = validateBody(contactAddSchema);
