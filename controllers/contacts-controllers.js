@@ -7,9 +7,9 @@ const getAll = async (req, res) => {
   const { page = 1, limit = 20, favorite } = req.query;
   const skip = (page - 1) * limit;
   const query = { owner };
-  if (favorite ) {
-      query.favorite = favorite;
-  }  
+  if (favorite) {
+    query.favorite = favorite;
+  }
   const result = await Contact.find(query, "", { skip, limit }).populate(
     "owner",
     "email subscription"
@@ -19,7 +19,8 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
   const { contactId } = req.params;
-  const result = await Contact.findById(contactId);
+  const { _id: contactOwner } = req.user;
+  const result = await Contact.findOne({ owner: contactOwner, _id: contactId });
   if (!result) {
     throw HttpError(404, `Not found`);
   }
@@ -34,7 +35,11 @@ const addNew = async (req, res) => {
 
 const deleteById = async (req, res) => {
   const { contactId } = req.params;
-  const result = await Contact.findByIdAndDelete(contactId);
+  const { _id: contactOwner } = req.user;
+  const result = await Contact.findOneAndDelete({
+    owner: contactOwner,
+    _id: contactId,
+  });
   if (!result) {
     throw HttpError(404, `Not found`);
   }
@@ -43,9 +48,14 @@ const deleteById = async (req, res) => {
 
 const updateById = async (req, res, next) => {
   const { contactId } = req.params;
-  const result = await Contact.findByIdAndUpdate(contactId, req.body, {
-    new: true,
-  });
+  const { _id: contactOwner } = req.user;
+  const result = await Contact.findOneAndUpdate(
+    { owner: contactOwner, _id: contactId },
+    req.body,
+    {
+      new: true,
+    }
+  );
   if (!result) {
     throw HttpError(404, `Not found`);
   }
@@ -54,9 +64,14 @@ const updateById = async (req, res, next) => {
 
 const updateStatusContact = async (req, res, next) => {
   const { contactId } = req.params;
-  const result = await Contact.findByIdAndUpdate(contactId, req.body, {
-    new: true,
-  });
+  const { _id: contactOwner } = req.user;
+  const result = await Contact.findOneAndUpdate(
+    { owner: contactOwner, _id: contactId },
+    req.body,
+    {
+      new: true,
+    }
+  );
   if (!result) {
     throw HttpError(404, `Not found`);
   }
