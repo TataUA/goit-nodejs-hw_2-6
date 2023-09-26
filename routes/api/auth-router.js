@@ -5,7 +5,8 @@ const {
   userUpdateSubscriptionValidate,
 } = require("../../middlewares/validation");
 const authenticate = require("../../middlewares/authenticate");
-const authControllers = require("../../controllers/auth-controller");
+const upload = require("../../middlewares/upload");
+const authControllers = require("../../controllers/auth-controllers");
 
 const authRouter = express.Router();
 
@@ -22,6 +23,13 @@ authRouter.patch(
   authenticate,
   userUpdateSubscriptionValidate,
   authControllers.updateSubscription
+);
+
+authRouter.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatarURL"),
+  authControllers.updateAvatar
 );
 
 module.exports = authRouter;
