@@ -7,6 +7,7 @@ const {
   userRegisterSchema,
   userLoginSchema,
   userUpdateSubscriptionSchema,
+  userEmailSchema,
 } = require("./users-validation");
 
 module.exports = {
@@ -15,4 +16,5 @@ module.exports = {
   userRegisterSchema,
   userLoginSchema,
   userUpdateSubscriptionSchema,
+  userEmailSchema,
 };
