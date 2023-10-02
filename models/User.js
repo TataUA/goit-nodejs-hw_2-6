@@ -28,13 +28,21 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, "Verify token is required"],
+    },
   },
   { versionKey: false }
 );
 
 userSchema.post("save", handleSaveErr);
 
-userSchema.pre("findOneAndUpdate", runValidateAtUpdate);
+userSchema.pre("updateOne", runValidateAtUpdate);
 
 userSchema.post("findOneAndUpdate", handleSaveErr);
 

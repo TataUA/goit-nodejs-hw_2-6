@@ -2,6 +2,7 @@ const {
   userRegisterValidate,
   userLoginValidate,
   userUpdateSubscriptionValidate,
+  userEmailValidate,
 } = require("../../middlewares/validation/user-validation");
 
 const {
@@ -18,4 +19,5 @@ module.exports = {
   userRegisterValidate,
   userLoginValidate,
   userUpdateSubscriptionValidate,
+  userEmailValidate,
 };
